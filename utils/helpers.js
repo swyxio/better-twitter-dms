@@ -11,9 +11,12 @@ const getURL = () => {
 const postData = ({ url, token, data = {} }) =>
   fetch(url, {
     method: 'POST',
-    headers: new Headers({ 'Content-Type': 'application/json', token }),
+    headers: {
+      'Content-Type': 'application/json',
+      token
+    },
     credentials: 'same-origin',
-    body: JSON.stringify(data)
+    body: JSON.stringify({ ...data, token })
   }).then((res) => res.json());
 
 const toDateTime = (secs) => {
@@ -22,4 +25,14 @@ const toDateTime = (secs) => {
   return t;
 };
 
-export { getURL, postData, toDateTime };
+const getData = ({ url, token }) =>
+  fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      token
+    },
+    credentials: 'same-origin'
+  }).then((res) => res.json());
+
+export { getURL, postData, getData, toDateTime };

@@ -6,7 +6,8 @@
   --hover: rgba(255, 255, 255, 0.075);
   --hover-1: rgba(255, 255, 255, 0.15);
   --hover-2: rgba(255, 255, 255, 0.25);
-  --selection: var(--purple);
+  --hover-3: rgba(25, 147, 165, 0.95);
+  --selection: var(--cyan);
 
   --text-base: white;
   --text-primary: white;
@@ -43,7 +44,7 @@
 }
 
 *:focus {
-  @apply outline-none ring-2 ring-pink ring-opacity-50;
+  @apply outline-none ring-2 ring-cyan ring-opacity-50;
 }
 
 html {

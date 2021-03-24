@@ -13,7 +13,7 @@ export default function Footer() {
               <span className="rounded-full border border-gray-700 mr-2">
                 <Logo />
               </span>
-              <span>ACME</span>
+              <span>Plz DM Me</span>
             </a>
           </Link>
         </div>
@@ -26,27 +26,21 @@ export default function Footer() {
                 </a>
               </Link>
             </li>
+
             <li className="py-3 md:py-0 md:pb-4">
-              <Link href="/">
+              <Link href="/pricing">
                 <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                  About
+                  Pricing
                 </a>
               </Link>
             </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link href="/">
+            {/* <li className="py-3 md:py-0 md:pb-4">
+              <Link href="/account">
                 <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                  Careers
+                  Account
                 </a>
               </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
-              <Link href="/">
-                <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                  Blog
-                </a>
-              </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="col-span-1 lg:col-span-2">
@@ -86,9 +80,9 @@ export default function Footer() {
       </div>
       <div className="py-12 flex flex-col md:flex-row justify-between items-center space-y-4 bg-primary-2">
         <div>
-          <span>&copy; 2020 ACME, Inc. All rights reserved.</span>
+          <span>&copy; 2021 Drew Bredvick. All rights reserved.</span>
         </div>
-        <div className="flex items-center">
+        <div className="hidden items-center">
           <span className="text-primary">Crafted by</span>
           <a href="https://vercel.com" aria-label="Vercel.com Link">
             <img

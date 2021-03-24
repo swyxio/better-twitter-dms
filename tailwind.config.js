@@ -2,9 +2,19 @@ module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      animation: {
+        fadeIn: 'fadeIn 1s ease-out forwards'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: 0, transform: 'translateY(10%)' },
+          '100%': { opacity: 1, transform: 'translateY(0%)' }
+        }
+      },
       maxWidth: {
         '8xl': '1920px'
       },
+      bg: ['disabled'],
       colors: {
         primary: 'var(--primary)',
         'primary-2': 'var(--primary-2)',
@@ -13,6 +23,7 @@ module.exports = {
         hover: 'var(--hover)',
         'hover-1': 'var(--hover-1)',
         'hover-2': 'var(--hover-2)',
+        'hover-3': 'var(--hover-3)',
         'accents-0': 'var(--accents-0)',
         'accents-1': 'var(--accents-1)',
         'accents-2': 'var(--accents-2)',
@@ -48,5 +59,13 @@ module.exports = {
         widest: '0.3em'
       }
     }
-  }
+  },
+  linearBorderGradients: (theme) => ({
+    colors: theme('colors')
+  }),
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('tailwindcss-border-gradients')()
+  ]
 };

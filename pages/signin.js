@@ -47,7 +47,11 @@ const SignIn = () => {
 
   useEffect(() => {
     if (user) {
-      router.replace('/account');
+      if (router.query?.path) {
+        router.replace(router.query.path);
+      } else {
+        router.replace('/account');
+      }
     }
   }, [user]);
 
@@ -61,9 +65,9 @@ const SignIn = () => {
           {message.content && (
             <div
               className={`${
-                message.type === 'error' ? 'text-pink' : 'text-green'
+                message.type === 'error' ? 'text-cyan' : 'text-green'
               } border ${
-                message.type === 'error' ? 'border-pink' : 'border-green'
+                message.type === 'error' ? 'border-cyan' : 'border-green'
               } p-3`}
             >
               {message.content}

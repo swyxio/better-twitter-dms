@@ -67,6 +67,35 @@ const createOrRetrieveCustomer = async ({ email, uuid }) => {
   if (data) return data.stripe_customer_id;
 };
 
+const createTwitterToken = async ({ user_id, token_secret }) => {
+  const { data, error } = await supabaseAdmin
+    .from('twitter_tokens')
+    .insert([{ user_id, token_secret }]);
+
+  if (error) {
+    // uhh ohh no we don't have a db connection?
+    return console.log(error);
+  }
+
+  return data;
+};
+
+const getTwitterTokenFromUserId = async ({ user_id }) => {
+  const { data, error } = await supabaseAdmin
+    .from('twitter_tokens')
+    .select('*')
+    .eq('user_id', user_id)
+    .order('created_at', { ascending: false })
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.log(error);
+    return null;
+  }
+  return data;
+};
+
 /**
  * Copies the billing details from the payment method to the customer object.
  */
@@ -147,9 +176,82 @@ const manageSubscriptionStatusChange = async (
     );
 };
 
+const manageOneTimePayment = async (
+  paymentId,
+  customerId,
+  createAction = false,
+  dateCreated
+) => {
+  // Get customer's UUID from mapping table.
+  const {
+    data: { id: uuid },
+    error: noCustomerError
+  } = await supabaseAdmin
+    .from('customers')
+    .select('id')
+    .eq('stripe_customer_id', customerId)
+    .single();
+  if (noCustomerError) throw noCustomerError;
+
+  const purchase = await stripe.checkout.sessions.retrieve(paymentId, {
+    expand: ['line_items']
+  });
+
+  const purchaseData = {
+    payment_id: paymentId,
+    user_id: uuid,
+    created: toDateTime(dateCreated),
+    price_id: purchase.line_items.data[0].price.id //aayyyy
+  };
+
+  const { error } = await supabaseAdmin
+    .from('purchases') // change this to new table01
+    .insert([purchaseData], { upsert: true });
+  if (error) throw error;
+  console.log(`Inserted/updated purchase [${purchase.id}] for user [${uuid}]`);
+
+  // For a new subscription copy the billing details to the customer object.
+  // NOTE: This is a costly operation and should happen at the very end.
+  // if (createAction && subscription.default_payment_method)
+  //   await copyBillingDetailsToCustomer(
+  //     uuid,
+  //     subscription.default_payment_method,
+  //     customerId
+  //   );
+};
+
+const addReceiptToPurchase = async (receipt_url, created, customer) => {
+  const {
+    data: { id: uuid },
+    error: noCustomerError
+  } = await supabaseAdmin
+    .from('customers')
+    .select('id')
+    .eq('stripe_customer_id', customer)
+    .single();
+
+  console.log('could not find supabase customer', customer);
+  if (noCustomerError) throw noCustomerError;
+
+  const receiptData = {
+    user_id: uuid,
+    created: toDateTime(created),
+    receipt_url
+  };
+
+  const { error } = await supabaseAdmin
+    .from('receipts')
+    .insert([receiptData], { upsert: true });
+  if (error) throw error;
+};
+
 export {
   upsertProductRecord,
   upsertPriceRecord,
   createOrRetrieveCustomer,
-  manageSubscriptionStatusChange
+  manageSubscriptionStatusChange,
+  createTwitterToken,
+  getTwitterTokenFromUserId,
+  manageOneTimePayment,
+  addReceiptToPurchase
 };

@@ -20,16 +20,24 @@ const Navbar = () => {
               </a>
             </Link>
             <nav className="space-x-2 ml-6 hidden lg:block">
-              <Link href="/">
+              {/* <Link href="/pricing">
                 <a className={s.link}>Pricing</a>
-              </Link>
-              <Link href="/account">
-                <a className={s.link}>Account</a>
-              </Link>
+              </Link> */}
+
+              {user && (
+                <>
+                  <Link href="/account">
+                    <a className={s.link}>Account</a>
+                  </Link>
+                  <Link href="/messages">
+                    <a className={s.link}>Messages</a>
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
 
-          <div className="flex flex-1 justify-end space-x-8">
+          <div className="hidden deletethis-flex flex-1 justify-end space-x-8">
             {user ? (
               <Link href="#">
                 <a className={s.link} onClick={() => signOut()}>

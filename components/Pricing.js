@@ -6,7 +6,7 @@ import { getStripe } from '../utils/initStripejs';
 import { useUser } from '../components/UserContext';
 import Button from './ui/Button';
 
-export default function Pricing({ products }) {
+export default function Pricing({ products, showBrands = true }) {
   const [billingInterval, setBillingInterval] = useState('month');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -22,15 +22,19 @@ export default function Pricing({ products }) {
       router.push('/account');
       return;
     }
+
     const { sessionId, error: apiError } = await postData({
       url: '/api/createCheckoutSession',
       data: { price },
       token: session.access_token
     });
-    if (apiError) return alert(apiError.message);
+    if (apiError) {
+      console.log(apiError);
+      return alert(apiError.message);
+    }
     const stripe = await getStripe();
     const { error: stripeError } = stripe.redirectToCheckout({ sessionId });
-    if (stripeError) alert(error.message);
+    if (stripeError) alert(`stripe error`, error.message);
     setLoading(false);
   };
 
@@ -74,7 +78,7 @@ export default function Pricing({ products }) {
                 billingInterval === 'month'
                   ? 'relative w-1/2 bg-accents-1 border-accents-0 shadow-sm text-white'
                   : 'ml-0.5 relative w-1/2 border border-transparent text-accents-4'
-              } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+              } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
             >
               Monthly billing
             </button>
@@ -85,16 +89,16 @@ export default function Pricing({ products }) {
                 billingInterval === 'year'
                   ? 'relative w-1/2 bg-accents-1 border-accents-0 shadow-sm text-white'
                   : 'ml-0.5 relative w-1/2 border border-transparent text-accents-4'
-              } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-pink focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
+              } rounded-md m-1 py-2 text-sm font-medium whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-cyan focus:ring-opacity-50 focus:z-10 sm:w-auto sm:px-8`}
             >
               Yearly billing
             </button>
           </div>
         </div>
-        <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-4">
+        <div className="hidden mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-4">
           {products.map((product) => {
             const price = product.prices.find(
-              (price) => price.interval === billingInterval
+              (price) => price.type === billingInterval
             );
             const priceString = new Intl.NumberFormat('en-US', {
               style: 'currency',
@@ -107,7 +111,7 @@ export default function Pricing({ products }) {
                 className={cn(
                   'rounded-lg shadow-sm divide-y divide-accents-2 bg-primary-2',
                   {
-                    'border border-pink': subscription
+                    'border border-cyan': subscription
                       ? product.name === subscription?.prices?.products.name
                       : product.name === 'Freelancer'
                   }
@@ -143,56 +147,56 @@ export default function Pricing({ products }) {
             );
           })}
         </div>
-        <div>
-          <p className="mt-24 text-xs uppercase text-accents-3 text-center font-bold tracking-widest">
-            Brought to you by
-          </p>
-          <div className="flex flex-col items-center my-12 space-y-4 sm:mt-8 sm:space-y-0 md:mx-auto md:max-w-2xl sm:grid sm:gap-6 sm:grid-cols-5">
-            <div className="flex items-center justify-start">
-              <a href="https://nextjs.org" aria-label="Next.js Link">
-                <img
-                  src="/nextjs.svg"
-                  alt="Next.js Logo"
-                  className="h-12 text-primary"
-                />
-              </a>
-            </div>
-            <div className="flex items-center justify-start">
-              <a href="https://vercel.com" aria-label="Vercel.com Link">
-                <img
-                  src="/vercel.svg"
-                  alt="Vercel.com Logo"
-                  className="h-6 text-primary"
-                />
-              </a>
-            </div>
-            <div className="flex items-center justify-start">
-              <a href="https://stripe.com" aria-label="stripe.com Link">
-                <img
-                  src="/stripe.svg"
-                  alt="stripe.com Logo"
-                  className="h-12 text-primary"
-                />
-              </a>
-            </div>
-            <div className="flex items-center justify-start">
-              <a href="https://supabase.io" aria-label="supabase.io Link">
-                <img
-                  src="/supabase.svg"
-                  alt="supabase.io Logo"
-                  className="h-10 text-primary"
-                />
-              </a>
-            </div>
-            <div className="flex items-center justify-start">
-              <a href="https://github.com" aria-label="github.com Link">
-                <img
-                  src="/github.svg"
-                  alt="github.com Logo"
-                  className="h-8 text-primary"
-                />
-              </a>
-            </div>
+      </div>
+      <div className={showBrands ? '' : 'hidden'}>
+        <p className="mt-24 text-xs uppercase text-accents-3 text-center font-bold tracking-widest">
+          Powered by
+        </p>
+        <div className="flex flex-col items-center my-12 space-y-4 sm:mt-8 sm:space-y-0 md:mx-auto md:max-w-2xl sm:grid sm:gap-6 sm:grid-cols-5">
+          <div className="flex items-center justify-start">
+            <a href="https://nextjs.org" aria-label="Next.js Link">
+              <img
+                src="/nextjs.svg"
+                alt="Next.js Logo"
+                className="h-12 text-primary"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-start">
+            <a href="https://vercel.com" aria-label="Vercel.com Link">
+              <img
+                src="/vercel.svg"
+                alt="Vercel.com Logo"
+                className="h-6 text-primary"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-start">
+            <a href="https://stripe.com" aria-label="stripe.com Link">
+              <img
+                src="/stripe.svg"
+                alt="stripe.com Logo"
+                className="h-12 text-primary"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-start">
+            <a href="https://supabase.io" aria-label="supabase.io Link">
+              <img
+                src="/supabase.svg"
+                alt="supabase.io Logo"
+                className="h-10 text-primary"
+              />
+            </a>
+          </div>
+          <div className="flex items-center justify-start">
+            <a href="https://github.com" aria-label="github.com Link">
+              <img
+                src="/github.svg"
+                alt="github.com Logo"
+                className="h-8 text-primary"
+              />
+            </a>
           </div>
         </div>
       </div>

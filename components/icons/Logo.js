@@ -9,12 +9,20 @@ const Logo = ({ className = '', ...props }) => (
     {...props}
   >
     <rect width="100%" height="100%" rx="16" fill="var(--secondary)" />
-    <path
-      fillRule="evenodd"
-      clipRule="evenodd"
-      d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-      fill="var(--primary)"
-    />
+    <svg x="6" y="6">
+      <path
+        fill="var(--primary)"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"
+      />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        fill="var(--primary)"
+        d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"
+      />
+    </svg>
   </svg>
 );
 

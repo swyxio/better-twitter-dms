@@ -5,7 +5,8 @@ import { getURL } from '../../utils/helpers';
 
 const createCheckoutSession = async (req, res) => {
   if (req.method === 'POST') {
-    const token = req.headers.token;
+    const token = req.body.token;
+    console.log(token);
     const { price, quantity = 1, metadata = {} } = req.body;
 
     try {
@@ -27,12 +28,12 @@ const createCheckoutSession = async (req, res) => {
             quantity
           }
         ],
-        mode: 'subscription',
+        mode: 'payment', //switch to subscription for recurring payments
         allow_promotion_codes: true,
-        subscription_data: {
-          trial_from_plan: true,
-          metadata
-        },
+        // subscription_data: {
+        //   trial_from_plan: true,
+        //   metadata
+        // },
         success_url: `${getURL()}/account`,
         cancel_url: `${getURL()}/`
       });

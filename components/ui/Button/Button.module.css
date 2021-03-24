@@ -3,11 +3,11 @@
 }
 
 .root:hover {
-  @apply bg-accents-0 text-primary border border-secondary;
+  @apply bg-cyan text-primary border border-secondary;
 }
 
 .root:focus {
-  @apply outline-none ring-2 ring-pink ring-opacity-50;
+  @apply outline-none ring-2 ring-cyan ring-opacity-50;
 }
 
 .root[data-active] {

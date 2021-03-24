@@ -8,7 +8,9 @@ export const UserContextProvider = (props) => {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
+  const [receipts, setReceipts] = useState(null);
   const [subscription, setSubscription] = useState(null);
+  const [twitterAccounts, setTwitterAccounts] = useState([]);
 
   useEffect(() => {
     const session = supabase.auth.session();
@@ -32,21 +34,35 @@ export const UserContextProvider = (props) => {
 
   // Get the user's trialing or active subscription.
   const getSubscription = () =>
+    supabase.from('purchases').select('*, prices(*, products(*))');
+  // supabase
+  //   .from('subscriptions')
+  //   .select('*, prices(*, products(*))')
+  //   .in('status', ['trialing', 'active'])
+  //   .single();
+
+  const getTwitterAccounts = () =>
     supabase
-      .from('subscriptions')
-      .select('*, prices(*, products(*))')
-      .in('status', ['trialing', 'active'])
-      .single();
+      .from('twitter_tokens')
+      .select('created_at, user_name, twitter_user_id, user_id')
+      .not('user_name', 'is', null);
+
+  const getReceipts = () => supabase.from('receipts').select('*');
 
   useEffect(() => {
     if (user) {
-      Promise.allSettled([getUserDetails(), getSubscription()]).then(
-        (results) => {
-          setUserDetails(results[0].value.data);
-          setSubscription(results[1].value.data);
-          setUserLoaded(true);
-        }
-      );
+      Promise.allSettled([
+        getUserDetails(),
+        getSubscription(),
+        getTwitterAccounts(),
+        getReceipts()
+      ]).then((results) => {
+        setUserDetails(results[0].value.data);
+        setSubscription(results[1].value.data);
+        setTwitterAccounts(results[2].value.data);
+        setReceipts(results[3].value.data);
+        setUserLoaded(true);
+      });
     }
   }, [user]);
 
@@ -56,6 +72,8 @@ export const UserContextProvider = (props) => {
     userDetails,
     userLoaded,
     subscription,
+    twitterAccounts,
+    receipts,
     signIn: (options) => supabase.auth.signIn(options),
     signUp: (options) => supabase.auth.signUp(options),
     signOut: () => {

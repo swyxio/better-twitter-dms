@@ -5,7 +5,7 @@ import { getURL } from '../../utils/helpers';
 
 const createPortalLink = async (req, res) => {
   if (req.method === 'POST') {
-    const token = req.headers.token;
+    const token = req.body.token;
     try {
       const { data: user, error } = await supabaseAdmin.auth.api.getUser(token);
       if (error) throw error;

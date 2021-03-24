@@ -1,0 +1,7 @@
+.link > a {
+  @apply items-center  leading-6 font-medium transition ease-in-out duration-75 cursor-pointer text-accents-6 rounded-md hover:text-accents-9;
+}
+
+.link > a:focus {
+  @apply outline-none text-accents-8 ring-2 ring-cyan ring-opacity-50;
+}
