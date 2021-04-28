@@ -8,6 +8,9 @@ import Button from '../components/ui/Button';
 import Logo from '../components/icons/Logo';
 import GitHub from '../components/icons/GitHub';
 
+var mixpanel = require('mixpanel-browser');
+mixpanel.init('a9362ffc29e332f6d4476f4695482740');
+
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,7 +26,10 @@ const SignIn = () => {
     setLoading(true);
     setMessage({});
 
-    const { error } = await signIn({ email, password });
+    const { error } = await signIn(
+      { email, password },
+      { redirectTo: 'https://plzdm.me/messages' }
+    );
     if (error) {
       setMessage({ type: 'error', content: error.message });
     }
@@ -38,7 +44,10 @@ const SignIn = () => {
 
   const handleOAuthSignIn = async (provider) => {
     setLoading(true);
-    const { error } = await signIn({ provider });
+    const { error } = await signIn(
+      { provider },
+      { redirectTo: 'https://plzdm.me/messages' }
+    );
     if (error) {
       setMessage({ type: 'error', content: error.message });
     }
@@ -49,8 +58,9 @@ const SignIn = () => {
     if (user) {
       if (router.query?.path) {
         router.replace(router.query.path);
+        mixpanel.identify(user.id);
       } else {
-        router.replace('/account');
+        router.replace('/messages');
       }
     }
   }, [user]);

@@ -5,10 +5,10 @@ export default function Hero() {
   const router = useRouter();
   return (
     <div>
-      <div className="pt-0 overflow-hidden sm:pt-12 lg:relative pb-8">
+      <div className="pt-0 overflow-hidden sm:pt-12 lg:relative pb-24">
         <div className="mx-auto max-w-md px-4 justify-center sm:max-w-3xl sm:px-6 lg:px-8 lg:max-w-7xl lg:grid">
           <div>
-            <div className="hidden flex items-baseline  justify-center gap-2">
+            {/* <div className="hidden flex items-baseline  justify-center gap-2">
               <svg
                 height="72"
                 viewBox="0 0 32 32"
@@ -34,8 +34,8 @@ export default function Hero() {
               <h1 className="text-4xl text-accents-0 font-extrabold tracking-tight sm:text-5xl">
                 PlzDM.me
               </h1>
-            </div>
-            <div className="mt-36">
+            </div> */}
+            <div className="mt-20">
               {/* <div>
                 <a href="/" className="inline-flex space-x-4">
                   <span className="rounded bg-cyan px-2.5 py-1 text-xs font-semibold tracking-wide uppercase">
@@ -65,9 +65,9 @@ export default function Hero() {
               </div> */}
               <div className="mt-6 sm:max-w-2xl">
                 <div>
-                  <a href="/#signup" className="inline-flex space-x-4">
+                  <a href="/pricing" className="inline-flex space-x-4">
                     <span className="rounded bg-cyan px-2.5 py-1 text-xs font-semibold tracking-wide uppercase">
-                      Launching soon
+                      $39 lifetime deal launch discount
                     </span>
                     <span
                       className="hidden items-center text-sm font-medium  space-x-1 hover:underline"
@@ -126,6 +126,22 @@ export default function Hero() {
                   Then you'll be making new connections with your Twitter
                   followers stress-free in no time.
                 </p>
+                <h2 className="mt-6 text-2xl font-extrabold text-white sm:text-3xl">
+                  So what is a welcome message?
+                </h2>
+                <p className="mt-6 text-xl text-accents-5">
+                  If a picture is worth a thousand words, a live demo must be
+                  worth millions.
+                </p>
+                <br />
+                {' 👉  '}
+                <a
+                  target="_blank"
+                  className="pl-2 link font-bold underline hover:text-cyan text-xl"
+                  href="https://twitter.com/messages/compose?recipient_id=291449508&welcome_message_id=1380201827296280580"
+                >
+                  Try it!
+                </a>
               </div>
               {/* <form action="#" className="mt-12 sm:max-w-lg sm:w-full sm:flex">
                 <div className="mt-4 sm:mt-0 sm:ml-3">

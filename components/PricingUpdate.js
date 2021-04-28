@@ -6,10 +6,37 @@ import { getStripe } from '../utils/initStripejs';
 import { useUser } from './UserContext';
 import Button from './ui/Button';
 
+var mixpanel = require('mixpanel-browser');
+mixpanel.init('a9362ffc29e332f6d4476f4695482740');
+
 export default function Pricing({ products, showBrands = true }) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { session, userLoaded, subscription } = useUser();
+
+  // products[1] = {
+  //   id: 'free_plan',
+  //   active: true,
+  //   name: 'Free tier',
+  //   description: 'Start out for free!',
+  //   image: null,
+  //   metadata: {},
+  //   prices: [
+  //     {
+  //       id: 'free_plan',
+  //       product_id: 'prod_J2sr8SpjuTXS2B',
+  //       active: true,
+  //       description: null,
+  //       unit_amount: 0,
+  //       currency: 'usd',
+  //       type: 'one_time',
+  //       interval: null,
+  //       interval_count: null,
+  //       trial_period_days: null,
+  //       metadata: {}
+  //     }
+  //   ]
+  // };
 
   const handleCheckout = async (price) => {
     setLoading(true);
@@ -18,9 +45,17 @@ export default function Pricing({ products, showBrands = true }) {
       return;
     }
     if (subscription.length) {
-      router.push('/account');
+      router.push('/messages');
       return;
     }
+
+    if (price === 'free_plan') {
+      mixpanel.track('Free plan signup click');
+      router.push('/signup');
+      return;
+    }
+
+    mixpanel.track('Pay plan signup click');
 
     const { sessionId, error: apiError } = await postData({
       url: '/api/createCheckoutSession',
@@ -72,10 +107,10 @@ export default function Pricing({ products, showBrands = true }) {
         </div>
         <div className="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-2">
           {products.map((product) => {
+            console.log(product);
             const price = product.prices.find(
               (price) => price.type === 'one_time'
             );
-            console.log(price);
             const priceString = new Intl.NumberFormat('en-US', {
               style: 'currency',
               currency: price.currency,
@@ -104,7 +139,9 @@ export default function Pricing({ products, showBrands = true }) {
                     </span>
                     <span className="text-base font-medium text-accents-8">
                       {' '}
-                      one-time purchase
+                      {price.unit_amount === 0
+                        ? 'No cost'
+                        : 'one-time purchase'}
                     </span>
                   </p>
                   <Button
@@ -117,6 +154,8 @@ export default function Pricing({ products, showBrands = true }) {
                   >
                     {product.name === subscription?.prices?.products.name
                       ? 'Manage'
+                      : price.unit_amount === 0
+                      ? 'Get started '
                       : 'Purchase'}
                   </Button>
                 </div>

@@ -9,7 +9,6 @@ import Card from '../components/ui/Card';
 import Confetti from 'react-confetti';
 import useWindowSize from 'react-use/lib/useWindowSize';
 import LogRocket from 'logrocket';
-LogRocket.init('tsvmer/twitter-dms');
 
 export default function Account() {
   const [loading, setLoading] = useState(false);
@@ -103,7 +102,7 @@ export default function Account() {
           gravity={0.2}
           onConfettiComplete={() => {
             setShowConfetti(false);
-            router.replace('/account', undefined, { shallow: true });
+            router.push('/messages');
           }}
           style={{ position: 'fixed' }}
         />
@@ -112,7 +111,7 @@ export default function Account() {
         <div className="max-w-6xl mx-auto pt-8 sm:pt-24 pb-8 px-4 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
             <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
-              Account
+              Getting started
             </h1>
             <p className="mt-5 text-xl text-accents-6 sm:text-center sm:text-2xl max-w-2xl m-auto">
               Link your Twitter account below to get started, then click "Create
@@ -122,7 +121,7 @@ export default function Account() {
         </div>
         <div className="p-4">
           <Card
-            title="Twitter account"
+            title="Connect your Twitter account"
             description={
               twitterAccounts.length
                 ? `Your existing account`
@@ -164,7 +163,7 @@ export default function Account() {
             </div>
           </Card>
 
-          <Card
+          {/* <Card
             title="Your Email"
             description=""
             footer={
@@ -174,7 +173,7 @@ export default function Account() {
             <p className="text-xl mt-8 mb-4 font-semibold">
               {user ? user.email : undefined}
             </p>
-          </Card>
+          </Card> */}
           <Card
             title="Your Plan"
             description={`You are currently on the <b>${

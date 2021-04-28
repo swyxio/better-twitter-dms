@@ -74,11 +74,15 @@ export const UserContextProvider = (props) => {
     subscription,
     twitterAccounts,
     receipts,
-    signIn: (options) => supabase.auth.signIn(options),
-    signUp: (options) => supabase.auth.signUp(options),
+    signIn: (options, secondOptions) =>
+      supabase.auth.signIn(options, secondOptions),
+    signUp: (options, secondOptions) =>
+      supabase.auth.signUp(options, secondOptions),
     signOut: () => {
       setUserDetails(null);
       setSubscription(null);
+      setReceipts(null);
+      setTwitterAccounts([]);
       return supabase.auth.signOut();
     }
   };

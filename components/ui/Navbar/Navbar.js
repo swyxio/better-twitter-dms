@@ -20,9 +20,9 @@ const Navbar = () => {
               </a>
             </Link>
             <nav className="space-x-2 ml-6 hidden lg:block">
-              {/* <Link href="/pricing">
+              <Link href="/pricing">
                 <a className={s.link}>Pricing</a>
-              </Link> */}
+              </Link>
 
               {user && (
                 <>
@@ -37,7 +37,7 @@ const Navbar = () => {
             </nav>
           </div>
 
-          <div className="hidden deletethis-flex flex-1 justify-end space-x-8">
+          <div className="flex flex-1 justify-end space-x-8">
             {user ? (
               <Link href="#">
                 <a className={s.link} onClick={() => signOut()}>

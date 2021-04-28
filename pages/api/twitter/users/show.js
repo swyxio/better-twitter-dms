@@ -1,8 +1,7 @@
 import { supabaseAdmin } from '../../../../utils/initSupabaseAdmin';
-// import { getTwitterTokenFromUserId } from '../../../../utils/useDatabase';
 import Twitter from 'twitter-lite';
 
-const listDMs = async (req, res) => {
+const showUser = async (req, res) => {
   if (req.method === 'POST') {
     const token = req.body.token;
     try {
@@ -17,22 +16,21 @@ const listDMs = async (req, res) => {
         .limit(1)
         .single();
       if (err) throw err;
-      console.log(user_token);
 
       const client = new Twitter({
         subdomain: 'api', // "api" is the default (change for other subdomains)
         version: '1.1',
         consumer_key: process.env.TWITTER_API_KEY,
         consumer_secret: process.env.TWITTER_API_SECRET_KEY,
-        access_token_key: user_token.user_token, //'291449508-zxl0Pvw8IDMyOy1R56fcJS9usBpPO9R4g9axIfPT',
-        access_token_secret: user_token.user_token_secret // 'gorbJACzqzNs7RHRKzipk2HbDJIoKc3xkfn4rElTXVn9Q'
+        access_token_key: user_token.user_token,
+        access_token_secret: user_token.user_token_secret
       });
 
-      const messages = await client.get('direct_messages/events/list');
-      console.log(messages.events.map((x) => x.message_create));
-      return res
-        .status(200)
-        .json({ messages: messages.events.map((x) => x.message_create) });
+      const twitter_user = await client.get('users/show', {
+        user_id: user_token.twitter_user_id
+      });
+
+      return res.status(200).json({ twitter_user });
     } catch (err) {
       console.log(err);
       res
@@ -44,4 +42,4 @@ const listDMs = async (req, res) => {
     res.status(405).end('Method Not Allowed');
   }
 };
-export default listDMs;
+export default showUser;

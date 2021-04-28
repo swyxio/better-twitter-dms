@@ -19,6 +19,16 @@ const postData = ({ url, token, data = {} }) =>
     body: JSON.stringify({ ...data, token })
   }).then((res) => res.json());
 
+const deleteData = ({ url, token }) =>
+  fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      token
+    },
+    credentials: 'same-origin'
+  }).then((res) => res.json());
+
 const toDateTime = (secs) => {
   var t = new Date('1970-01-01T00:30:00Z'); // Unix epoch start.
   t.setSeconds(secs);
@@ -35,4 +45,4 @@ const getData = ({ url, token }) =>
     credentials: 'same-origin'
   }).then((res) => res.json());
 
-export { getURL, postData, getData, toDateTime };
+export { getURL, postData, getData, toDateTime, deleteData };

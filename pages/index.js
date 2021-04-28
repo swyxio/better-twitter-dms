@@ -8,17 +8,24 @@ import Features from '../components/Features';
 import { useRouter } from 'next/router';
 import UseCases from '../components/UseCases';
 import Signup from '../components/Signup';
+import CTA from '../components/CTA';
+import WithAndWithout from '../components/WithAndWithout';
+import { useUser } from '../components/UserContext';
+
 export default function PricingPage({ products }) {
   const router = useRouter();
+  const { session, user, userLoaded, subscription } = useUser();
 
-  // useEffect(() => {
-  //   router.push('/signin');
-  // }, []);
+  useEffect(() => {
+    if (userLoaded && user) {
+      router.push('/messages');
+    }
+  }, [user, userLoaded]);
   return (
     <>
       <Hero />
       {/* <UseCases /> */}
-      <Signup />
+      {/* <CTA /> */}
       {/* <Info /> */}
       {/* <Features /> */}
       {/* <PricingUpdate products={products} /> */}

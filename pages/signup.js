@@ -22,7 +22,10 @@ const SignUp = () => {
 
     setLoading(true);
     setMessage({});
-    const { error, user } = await signUp({ email, password });
+    const { error, user } = await signUp(
+      { email, password },
+      { redirectTo: 'https://plzdm.me/messages' }
+    );
     if (error) {
       setMessage({ type: 'error', content: error.message });
     } else {
@@ -46,7 +49,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (user) {
-      router.replace('/account');
+      router.replace('/messages');
     }
   }, [user]);
 

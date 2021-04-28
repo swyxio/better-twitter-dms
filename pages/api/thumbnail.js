@@ -1,7 +1,7 @@
 import * as playwright from 'playwright-aws-lambda';
 
 const getAbsoluteURL = (path) => {
-  const baseURL = 'https://bettertwitterdms.com/';
+  const baseURL = 'https://plzdm.me/';
   return baseURL + path;
 };
 export default async (req, res) => {

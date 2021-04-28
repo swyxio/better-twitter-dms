@@ -7,6 +7,9 @@ import { UserContextProvider } from '../components/UserContext';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
+import LogRocket from 'logrocket';
+LogRocket.init('tsvmer/twitter-dms');
+
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter();
   useEffect(() => {

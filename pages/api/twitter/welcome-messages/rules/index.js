@@ -19,7 +19,7 @@ const listDMs = async (req, res) => {
       const { data: user_token, error: err } = await supabaseAdmin
         .from('twitter_tokens')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', process.env.impersonate || user.id)
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
@@ -38,7 +38,7 @@ const listDMs = async (req, res) => {
         'direct_messages/welcome_messages/rules/list'
       );
 
-      if (rules.welcome_message_rules.length) {
+      if (rules?.welcome_message_rules?.length) {
         // there already is a rule, delete it
         const ruleToDelete = rules.welcome_message_rules[0];
 
@@ -62,10 +62,25 @@ const listDMs = async (req, res) => {
 
       return res.status(200).json({ rules: updatedRules });
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      let errorMessage = '';
+      if ('errors' in err) {
+        // Twitter API error
+        if (err.errors[0].code === 88) {
+          // rate limit exceeded
+          (errorMessage = 'Twitter rate limit will reset on'),
+            new Date(err._headers.get('x-rate-limit-reset') * 1000);
+          console.log(
+            'Twitter rate limit will reset on',
+            new Date(err._headers.get('x-rate-limit-reset') * 1000)
+          );
+        }
+        // some other kind of error, e.g. read-only API trying to POST
+        else errorMessage = err?.errors[0]?.message;
+      }
       res
         .status(500)
-        .json({ error: { statusCode: 500, message: err.message } });
+        .json({ error: { statusCode: 500, message: errorMessage } });
     }
   } else {
     res.setHeader('Allow', 'POST');

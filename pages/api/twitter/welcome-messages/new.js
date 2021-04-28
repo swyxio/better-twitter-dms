@@ -25,13 +25,13 @@ const listDMs = async (req, res) => {
       } = await supabaseAdmin
         .from('purchases')
         .select('price_id')
-        .eq('user_id', user.id)
+        .eq('user_id', process.env.impersonate || user.id)
         .single();
 
       const { data: user_token, error: err } = await supabaseAdmin
         .from('twitter_tokens')
         .select('*')
-        .eq('user_id', user.id)
+        .eq('user_id', process.env.impersonate || user.id)
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
@@ -81,9 +81,10 @@ const listDMs = async (req, res) => {
             }
           ];
       ctas = ctas.filter((x) => x.label && x.url);
-      const messages = await client.post(
-        'direct_messages/welcome_messages/new',
-        {
+
+      let messages;
+      if (ctas.length) {
+        messages = await client.post('direct_messages/welcome_messages/new', {
           name: `${user_token.twitter_user_id}-${
             user_token.user_name
           }-${Date.now()}`,
@@ -93,15 +94,41 @@ const listDMs = async (req, res) => {
               ctas: ctas
             }
           }
-        }
-      );
+        });
+      } else {
+        messages = await client.post('direct_messages/welcome_messages/new', {
+          name: `${user_token.twitter_user_id}-${
+            user_token.user_name
+          }-${Date.now()}`,
+          welcome_message: {
+            message_data: {
+              text: main_text
+            }
+          }
+        });
+      }
 
       return res.status(200).json({ messages });
     } catch (err) {
-      console.log(err);
+      console.error(err);
+      let errorMessage = '';
+      if ('errors' in err) {
+        // Twitter API error
+        if (err.errors[0].code === 88) {
+          // rate limit exceeded
+          (errorMessage = 'Twitter rate limit will reset on'),
+            new Date(err._headers.get('x-rate-limit-reset') * 1000);
+          console.log(
+            'Twitter rate limit will reset on',
+            new Date(err._headers.get('x-rate-limit-reset') * 1000)
+          );
+        }
+        // some other kind of error, e.g. read-only API trying to POST
+        else errorMessage = err?.errors[0]?.message;
+      }
       res
         .status(500)
-        .json({ error: { statusCode: 500, message: err.message } });
+        .json({ error: { statusCode: 500, message: errorMessage } });
     }
   } else {
     res.setHeader('Allow', 'POST');

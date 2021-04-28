@@ -31,6 +31,11 @@ export default function Messages() {
     setApps(messages?.apps);
     setDMs(messages?.welcome_messages || []);
     setRules(rules?.welcome_message_rules || []);
+
+    if (!messages?.welcome_messages) {
+      // no messages yet, redirect to new
+      router.push('/messages/new');
+    }
     setLoading(false);
   };
 
@@ -66,7 +71,7 @@ export default function Messages() {
 
   return (
     <>
-      <section className="bg-black mb-32">
+      <section className="bg-black mb-32 lg:mb-88">
         <div className="max-w-6xl mx-auto pt-8 sm:pt-24 pb-8 px-4 sm:px-6 lg:px-8">
           <div className="sm:flex sm:flex-col sm:align-center">
             <h1 className="text-4xl font-extrabold text-white sm:text-center sm:text-6xl">
@@ -107,7 +112,7 @@ export default function Messages() {
                       htmlFor="email"
                       className="block text-sm font-medium text-accents-7"
                     >
-                      Link
+                      Send us a private message link
                     </label>
                     <div className="mt-1 flex rounded-md shadow-sm">
                       <div className="relative flex items-stretch flex-grow focus-within:z-10">

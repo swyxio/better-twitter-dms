@@ -29,7 +29,7 @@ export default function Component(props) {
     }
   };
   return (
-    <div id="signup" className="flex pb-20 sm:pb-16">
+    <div id="signup" className="flex my-20 sm:my-16 ">
       <div className="mx-auto lg:py-8 ">
         <h2 className="inline text-3xl font-extrabold tracking-tight text-primary sm:block sm:text-4xl">
           Want to fix your DM woes?
@@ -80,7 +80,7 @@ export default function Component(props) {
                 onClick={submitEmail}
                 className="umami--click--submit-button w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-cyan hover:bg-hover-3 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan"
               >
-                Notify me
+                Get started
               </button>
             </div>
           </form>

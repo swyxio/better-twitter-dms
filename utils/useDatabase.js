@@ -210,6 +210,28 @@ const manageOneTimePayment = async (
   if (error) throw error;
   console.log(`Inserted/updated purchase [${purchase.id}] for user [${uuid}]`);
 
+  // start: handle update to convertkit
+  // const data = {
+  //   api_key: process.env.CONVERTKIT_API_KEY,
+  //   email,
+  //   fields: {
+  //     twitter: user_token?.user_name,
+  //     plan: subscriptionPriceId ? 'free' : 'paid'
+  //   }
+  // };
+  // const response = await fetch(
+  //   `https://api.convertkit.com/v3/forms/${formId}/subscribe`,
+  //   {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(data)
+  //   }
+  // );
+
+  // end: handle convertkit
+
   // For a new subscription copy the billing details to the customer object.
   // NOTE: This is a costly operation and should happen at the very end.
   // if (createAction && subscription.default_payment_method)
