@@ -65,9 +65,9 @@ export default function Hero() {
               </div> */}
               <div className="mt-6 sm:max-w-2xl">
                 <div>
-                  <a href="/pricing" className="inline-flex space-x-4">
+                  <a href="/signin" className="inline-flex space-x-4">
                     <span className="rounded bg-cyan px-2.5 py-1 text-xs font-semibold tracking-wide uppercase">
-                      $39 lifetime deal launch discount
+                      Get started for free
                     </span>
                     <span
                       className="hidden items-center text-sm font-medium  space-x-1 hover:underline"
@@ -138,9 +138,9 @@ export default function Hero() {
                 <a
                   target="_blank"
                   className="pl-2 link font-bold underline hover:text-cyan text-xl"
-                  href="https://twitter.com/messages/compose?recipient_id=291449508&welcome_message_id=1380201827296280580"
+                  href="/signup"
                 >
-                  Try it!
+                  Get started
                 </a>
               </div>
               {/* <form action="#" className="mt-12 sm:max-w-lg sm:w-full sm:flex">

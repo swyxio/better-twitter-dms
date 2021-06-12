@@ -8,6 +8,12 @@ const listDMs = async (req, res) => {
       const { data: user, error } = await supabaseAdmin.auth.api.getUser(token);
       if (error) throw error;
 
+      try {
+        console.log('hello', supabaseAdmin.auth.user());
+      } catch (err2) {
+        console.log(err2);
+      }
+
       const { data: user_token, error: err } = await supabaseAdmin
         .from('twitter_tokens')
         .select('*')

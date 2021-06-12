@@ -28,13 +28,6 @@ export default function Footer() {
             </li>
 
             <li className="py-3 md:py-0 md:pb-4">
-              <Link href="/pricing">
-                <a className="text-primary hover:text-accents-6 transition ease-in-out duration-150">
-                  Pricing
-                </a>
-              </Link>
-            </li>
-            <li className="py-3 md:py-0 md:pb-4">
               <Link href="https://twitter.com/messages/compose?recipient_id=291449508&welcome_message_id=1380201827296280580">
                 <a
                   target="_blank"
