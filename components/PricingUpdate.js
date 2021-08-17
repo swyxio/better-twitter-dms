@@ -26,7 +26,10 @@ export default function Pricing({ products, showBrands = true }) {
             <div className="flow-root self-center mt-8 lg:mt-0">
               <div className="-mt-4 -ml-8 flex flex-wrap justify-between lg:-ml-4">
                 <div className="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
-                  <a href="https://gumroad.com/a/81433715/PBkrO">
+                  <a
+                    target="_blank"
+                    href="https://gumroad.com/a/81433715/PBkrO"
+                  >
                     <img
                       className="h-24"
                       alt="everyone can build a twitter audience course"
