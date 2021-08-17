@@ -14,7 +14,6 @@ const listDMs = async (req, res) => {
       link_3
     } = req.body;
 
-    console.log(req.body);
     try {
       const { data: user, error } = await supabaseAdmin.auth.api.getUser(token);
       if (error) throw error;
@@ -37,14 +36,15 @@ const listDMs = async (req, res) => {
         .single();
       if (err) throw err;
 
-      if (!subscriptionPriceId || subscriptionError) {
-        // user has not paid what do we do?
-        // well, free account lets them create/edit/delete welcome messages
-        // we're only letting them create ones without links though.
-        // so strip links here prior to creating
-        link_1 = `https://plzdm.me?ref=${user_token.user_name}`;
-        label_1 = 'Powered by plzdm.me';
-      }
+      // normally gate access here, free for everyone now :)
+      // if (!subscriptionPriceId || subscriptionError) {
+      //   // user has not paid what do we do?
+      //   // well, free account lets them create/edit/delete welcome messages
+      //   // we're only letting them create ones without links though.
+      //   // so strip links here prior to creating
+      //   link_1 = `https://plzdm.me?ref=${user_token.user_name}`;
+      //   label_1 = 'Powered by plzdm.me';
+      // }
 
       const client = new Twitter({
         subdomain: 'api', // "api" is the default (change for other subdomains)
@@ -55,31 +55,24 @@ const listDMs = async (req, res) => {
         access_token_secret: user_token.user_token_secret
       });
 
-      let ctas = subscriptionPriceId
-        ? [
-            {
-              type: 'web_url',
-              label: label_1,
-              url: link_1
-            },
-            {
-              type: 'web_url',
-              label: label_2,
-              url: link_2
-            },
-            {
-              type: 'web_url',
-              label: label_3,
-              url: link_3
-            }
-          ]
-        : [
-            {
-              type: 'web_url',
-              label: label_1,
-              url: link_1
-            }
-          ];
+      let ctas = [
+        {
+          type: 'web_url',
+          label: label_1,
+          url: link_1
+        },
+        {
+          type: 'web_url',
+          label: label_2,
+          url: link_2
+        },
+        {
+          type: 'web_url',
+          label: label_3,
+          url: link_3
+        }
+      ];
+
       ctas = ctas.filter((x) => x.label && x.url);
 
       let messages;

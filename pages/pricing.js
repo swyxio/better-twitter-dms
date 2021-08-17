@@ -5,7 +5,7 @@ export default function Prices({ products }) {
   return (
     <>
       {/* rewrite this as hard coded, lol */}
-      <PricingUpdate products={products} showBrands={false} />
+      <PricingUpdate products={products} showBrands={false} disabled={true} />
     </>
   );
 }

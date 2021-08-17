@@ -73,40 +73,34 @@ const GetDM = async (req, res) => {
         .eq('user_id', process.env.impersonate || user.id)
         .single();
 
-      if (!subscriptionPriceId || subscriptionError) {
-        // user has not paid what do we do?
-        // well, free account lets them create/edit/delete welcome messages
-        // we're only letting them create ones without links though.
-        // so strip links here prior to creating
-        link_1 = `https://plzdm.me?ref=${user_token.user_name}`;
-        label_1 = 'Powered by plzdm.me';
-      }
+      // free for everyone now :)
+      // if (!subscriptionPriceId || subscriptionError) {
+      //   // user has not paid what do we do?
+      //   // well, free account lets them create/edit/delete welcome messages
+      //   // we're only letting them create ones without links though.
+      //   // so strip links here prior to creating
+      //   link_1 = `https://plzdm.me?ref=${user_token.user_name}`;
+      //   label_1 = 'Powered by plzdm.me';
+      // }
 
-      let ctas = subscriptionPriceId
-        ? [
-            {
-              type: 'web_url',
-              label: label_1,
-              url: link_1
-            },
-            {
-              type: 'web_url',
-              label: label_2,
-              url: link_2
-            },
-            {
-              type: 'web_url',
-              label: label_3,
-              url: link_3
-            }
-          ]
-        : [
-            {
-              type: 'web_url',
-              label: label_1,
-              url: link_1
-            }
-          ];
+      let ctas = [
+        {
+          type: 'web_url',
+          label: label_1,
+          url: link_1
+        },
+        {
+          type: 'web_url',
+          label: label_2,
+          url: link_2
+        },
+        {
+          type: 'web_url',
+          label: label_3,
+          url: link_3
+        }
+      ];
+
       ctas = ctas.filter((x) => x.label && x.url);
 
       const client = new Twitter({

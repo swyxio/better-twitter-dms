@@ -26,7 +26,8 @@ export default function Edit() {
   const { register, handleSubmit, errors, setValue, watch } = useForm();
   const siteRegex = /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:[/?#]\S*)?$/i;
 
-  const isSubscribed = subscription && subscription.length;
+  const isSubscribed = true;
+  // const isSubscribed = subscription && subscription.length;
   const hasTwitterLinked = twitterAccounts && twitterAccounts.length;
 
   useEffect(() => {
@@ -199,17 +200,6 @@ export default function Edit() {
                 This is the body of your welcome message.
               </p>
             </div>
-            {!isSubscribed && (
-              <p className="pt-4 text-accents-6">
-                To add links, please{' '}
-                <Link passHref href="/pricing">
-                  <a className="link font-extrabold underline text-white">
-                    purchase
-                  </a>
-                </Link>{' '}
-                the full product.
-              </p>
-            )}
 
             <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
               <div className="sm:col-span-3">

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
+    "@heroicons/react": "^1.0.3",
     "@stripe/stripe-js": "^1.13.2",
     "@supabase/supabase-js": "^1.7.1",
     "@tailwindcss/forms": "^0.2.1",
@@ -17,13 +18,14 @@
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
     "date-fns": "^2.20.1",
+    "heroicons": "^1.0.2",
     "jwt-decode": "^3.1.2",
     "localforage": "^1.9.0",
     "login-with-twitter": "^1.2.4",
     "logrocket": "^1.0.14",
     "micro": "^9.3.4",
     "mixpanel-browser": "^2.41.0",
-    "next": "10.0.5",
+    "next": "^11.1.0",
     "next-auth": "^3.13.3",
     "playwright": "1.7.1",
     "playwright-aws-lambda": "^0.6.0",
@@ -37,16 +39,17 @@
     "react-use": "^17.2.1",
     "stripe": "^8.140.0",
     "swr": "0.4.0",
-    "tailwindcss": "^2.0.4",
     "tailwindcss-border-gradients": "^2.0.3",
     "twit": "^2.2.11",
     "twitter-lite": "github:dbredvick/twitter-lite"
   },
   "devDependencies": {
-    "postcss": "^8.2.8",
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "tailwindcss": "^2.2.7"
   },
   "prettier": {
     "arrowParens": "always",

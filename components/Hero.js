@@ -1,6 +1,10 @@
 import Button from '../components/ui/Button';
 import { useRouter } from 'next/router';
 import DM from '../components/ui/DM';
+import { Fragment } from 'react';
+import { Popover, Transition } from '@headlessui/react';
+import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 export default function Hero() {
   const router = useRouter();
   return (
@@ -65,30 +69,18 @@ export default function Hero() {
               </div> */}
               <div className="mt-6 sm:max-w-2xl">
                 <div>
-                  <a href="/signin" className="inline-flex space-x-4">
-                    <span className="rounded bg-cyan px-2.5 py-1 text-xs font-semibold tracking-wide uppercase">
-                      Get started for free
+                  <a
+                    href="#"
+                    className="inline-flex items-center text-white bg-gray-900 rounded-full p-1 pr-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
+                  >
+                    <span className="px-3 py-0.5 text-white text-xs font-semibold leading-5 uppercase tracking-wide bg-cyan rounded-full">
+                      Free and open source
                     </span>
-                    <span
-                      className="hidden items-center text-sm font-medium  space-x-1 hover:underline"
-                      style={{ textDecorationColor: '#22b8cf' }}
-                    >
-                      <span>Read more</span>
-
-                      <svg
-                        className="h-5 w-5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
+                    {/* <span className="ml-4 text-sm">Read more</span>
+                    <ChevronRightIcon
+                      className="ml-2 w-5 h-5 text-gray-500"
+                      aria-hidden="true"
+                    /> */}
                   </a>
                 </div>
                 <h1 className="pt-6 text-4xl font-extrabold tracking-tight sm:text-5xl">

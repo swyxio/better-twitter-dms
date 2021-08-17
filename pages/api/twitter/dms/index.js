@@ -24,8 +24,8 @@ const listDMs = async (req, res) => {
         version: '1.1',
         consumer_key: process.env.TWITTER_API_KEY,
         consumer_secret: process.env.TWITTER_API_SECRET_KEY,
-        access_token_key: user_token.user_token, //'291449508-zxl0Pvw8IDMyOy1R56fcJS9usBpPO9R4g9axIfPT',
-        access_token_secret: user_token.user_token_secret // 'gorbJACzqzNs7RHRKzipk2HbDJIoKc3xkfn4rElTXVn9Q'
+        access_token_key: user_token.user_token,
+        access_token_secret: user_token.user_token_secret
       });
 
       const messages = await client.get('direct_messages/events/list');
