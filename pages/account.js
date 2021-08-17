@@ -216,10 +216,11 @@ export default function Account() {
                 </>
               ) : (
                 <>
+                  A big thanks to our{' '}
                   <Link passHref href="/pricing">
-                    <a className="underline mt-4">Upgrade to Pro</a>
+                    <a className="underline mt-4">sponsors</a>
                   </Link>{' '}
-                  to enable custom links and remove "powered by plzdm.me".
+                  for helping us keep Plz DM Me free and open source.
                 </>
               )}
             </div>
