@@ -26,14 +26,15 @@ export default function Pricing({ products, showBrands = true }) {
             <div className="flow-root self-center mt-8 lg:mt-0">
               <div className="-mt-4 -ml-8 flex flex-wrap justify-between lg:-ml-4">
                 <div className="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
-                  <img
-                    className="h-24"
-                    alt="everyone can build a twitter audience course"
-                    src="https://public-files.gumroad.com/variants/slwkx1ewx2vi38la1rlop81n8ukl/3298c3eb001bbed90f1d616da66708480096a0a1b6e81bd4f8a2d6e9b831d301"
-                    alt="Workcation"
-                  />
+                  <a href="https://gumroad.com/a/81433715/PBkrO">
+                    <img
+                      className="h-24"
+                      alt="everyone can build a twitter audience course"
+                      src="https://public-files.gumroad.com/variants/slwkx1ewx2vi38la1rlop81n8ukl/3298c3eb001bbed90f1d616da66708480096a0a1b6e81bd4f8a2d6e9b831d301"
+                    />
+                  </a>
                 </div>
-                <div className="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
+                {/* <div className="mt-4 ml-8 flex flex-grow flex-shrink-0 justify-center lg:flex-grow-0 lg:ml-4">
                   <img
                     className="h-24"
                     src="https://ilo.so//static/hero.png"
@@ -46,7 +47,7 @@ export default function Pricing({ products, showBrands = true }) {
                     src="https://tailwindui.com/img/logos/workcation-logo-white.svg"
                     alt="Workcation"
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
