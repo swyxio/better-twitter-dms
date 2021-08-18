@@ -70,17 +70,18 @@ export default function Hero() {
               <div className="mt-6 sm:max-w-2xl">
                 <div>
                   <a
-                    href="#"
+                    href="https://plzdm.me/blog/free-and-open-source"
+                    target="_blank"
                     className="inline-flex items-center text-white bg-gray-900 rounded-full p-1 pr-2 sm:text-base lg:text-sm xl:text-base hover:text-gray-200"
                   >
                     <span className="px-3 py-0.5 text-white text-xs font-semibold leading-5 uppercase tracking-wide bg-cyan rounded-full">
                       Free and open source
                     </span>
-                    {/* <span className="ml-4 text-sm">Read more</span>
+                    <span className="ml-4 text-sm">Read more</span>
                     <ChevronRightIcon
                       className="ml-2 w-5 h-5 text-gray-500"
                       aria-hidden="true"
-                    /> */}
+                    />
                   </a>
                 </div>
                 <h1 className="pt-6 text-4xl font-extrabold tracking-tight sm:text-5xl">
