@@ -131,7 +131,7 @@ export default function Hero() {
                 <a
                   target="_blank"
                   className="pl-2 link font-bold underline hover:text-cyan text-xl"
-                  href="/signup"
+                  href="/signin"
                 >
                   Get started
                 </a>
