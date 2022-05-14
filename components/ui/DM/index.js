@@ -68,11 +68,12 @@ export default function DM({
                 </p>
               )}
             </div>
-            <div className="flex w-3/4 ml-14 justify-evenly md:ml-16 py-4 border-l-2 border-r-2 border-b-2">
-              <div className="text-blue text-sm bg-white">
-                {label_1 ? label_1 : 'Powered by PlzDM.me'}
+
+            {label_1 && (
+              <div className="flex w-3/4 ml-14 justify-evenly md:ml-16 py-4 border-l-2 border-r-2 border-b-2">
+                <div className="text-blue text-sm bg-white">{label_1}</div>
               </div>
-            </div>
+            )}
             {label_2 && (
               <div className="flex w-3/4 ml-14 justify-evenly md:ml-16 py-4 border-l-2 border-r-2 border-b-2">
                 <div className="text-blue text-sm bg-white">{label_2}</div>
