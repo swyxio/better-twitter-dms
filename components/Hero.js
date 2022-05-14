@@ -123,8 +123,8 @@ export default function Hero() {
                   So what is a welcome message?
                 </h2>
                 <p className="mt-6 text-xl text-accents-5">
-                  If a picture is worth a thousand words, a live demo must be
-                  worth millions.
+                  If a picture is worth a thousand words, so send me a DM to see
+                  it in action.
                 </p>
                 <br />
                 {' 👉  '}
