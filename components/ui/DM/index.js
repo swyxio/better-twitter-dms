@@ -78,11 +78,11 @@ export default function DM({
                 <div className="text-blue text-sm bg-white">{label_2}</div>
               </div>
             )}
-            {label_3 && (
-              <div className="flex w-3/4 ml-14 justify-evenly md:ml-16 py-4 border-l-2 border-r-2 border-b-2">
-                <div className="text-blue text-sm bg-white">{label_3}</div>
+            <div className="flex w-3/4 ml-14 justify-evenly md:ml-16 py-4 border-l-2 border-r-2 border-b-2">
+              <div className="text-blue text-sm bg-white">
+                Powered by PlzDM.me
               </div>
-            )}
+            </div>
           </div>
         </div>
         {/* <div

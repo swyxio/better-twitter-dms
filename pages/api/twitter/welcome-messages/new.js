@@ -68,8 +68,8 @@ const listDMs = async (req, res) => {
         },
         {
           type: 'web_url',
-          label: label_3,
-          url: link_3
+          label: 'Powered by PlzDM.me',
+          url: 'https://plzdm.me?ref=powered-by'
         }
       ];
 
