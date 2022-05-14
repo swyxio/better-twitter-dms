@@ -60,9 +60,6 @@ export default function Edit() {
     if (label_2 && !link_2) {
       return window.alert('Please include a link for Label #2');
     }
-    if (label_3 && !link_3) {
-      return window.alert('Please include a link for Label #3');
-    }
     setLoading(true);
     const { messages, error } = await postData({
       url: `/api/twitter/welcome-messages/${messageId}`,
@@ -296,7 +293,7 @@ export default function Edit() {
                   <span className="text-red">Please enter a valid URL.</span>
                 )}
               </div>
-              <div className="sm:col-span-3">
+              {/* <div className="sm:col-span-3">
                 <label
                   htmlFor="label_3"
                   className="block text-sm font-medium text-accents-7"
@@ -316,9 +313,9 @@ export default function Edit() {
                     }`}
                   />
                 </div>
-              </div>
+              </div> */}
 
-              <div className="sm:col-span-3">
+              {/* <div className="sm:col-span-3">
                 <label
                   htmlFor="link_3"
                   className="block text-sm font-medium text-accents-7"
@@ -342,7 +339,7 @@ export default function Edit() {
                 {errors.link_3 && (
                   <span className="text-red">Please enter a valid URL.</span>
                 )}
-              </div>
+              </div> */}
             </div>
           </Card>
         </form>
